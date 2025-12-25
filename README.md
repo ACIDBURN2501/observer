@@ -14,8 +14,6 @@ A lightweight, header‑only (with optional C API) library implementing the **Ob
 mkdir -p build && cd build
 cmake ..
 cmake --build .
-# Run the example program (if you add your own example)
-# ./example
 ```
 
 ## Run Unit Tests
