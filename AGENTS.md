@@ -8,8 +8,6 @@ The **Observer** library provides a lightweight, modern C++ implementation of th
 - **Thread‑safe** – Internally protects subscription containers with a `std::mutex`.
 - **Subscription IDs** – Unique identifiers returned on subscription for easy unsubscription.
 - **C API** – `observer_c.h` / `observer_c.cpp` expose the same functionality to C programs, useful for mixed‑language projects or embedded environments.
-- **Example program** – `example.cpp` demonstrates both the C++ and C usage patterns.
-- **CMake build** – Simple `CMakeLists.txt` builds a static library and the example program.
 
 ## Intended Learning Outcomes
 - Master modern C++ features: `std::function`, lambdas, `std::unordered_map`, and RAII.

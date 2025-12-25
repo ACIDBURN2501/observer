@@ -15,17 +15,13 @@ target_include_directories(observer PUBLIC
 
 
 
-# Example executable
-add_executable(example examples/example.cpp)
 
-# Ensure example sees headers in src
-target_include_directories(example PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
-target_link_libraries(example PRIVATE observer)
-
-# Test executable
+# Test executable for basic test
 add_executable(tests tests/test.cpp)
-
 target_include_directories(tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
 target_link_libraries(tests PRIVATE observer)
+
+# Test executable for multi‑topic test
+add_executable(multi_topic_test tests/multi_topic_test.cpp)
+target_include_directories(multi_topic_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_link_libraries(multi_topic_test PRIVATE observer)
