@@ -57,6 +57,3 @@ int main() {
     return 0;
 }
 ```
-
-## License
-MIT – see `LICENSE` file.
