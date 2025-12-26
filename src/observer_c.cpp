@@ -9,6 +9,7 @@
 #include "observer_c.h"
 #include "observer.hpp"
 #include <new>
+#include <cstdlib>
 
 extern "C" {
 
@@ -17,12 +18,12 @@ struct dispatcher_t {
 };
 
 dispatcher_t* dispatcher_create(void) {
-    dispatcher_t* d = (dispatcher_t*)std::malloc(sizeof(dispatcher_t));
+    auto d = new (std::nothrow) dispatcher_t{};
     if (!d) return nullptr;
     try {
         d->impl = new observer::Dispatcher();
     } catch (...) {
-        std::free(d);
+        delete d;
         return nullptr;
     }
     return d;
@@ -31,7 +32,7 @@ dispatcher_t* dispatcher_create(void) {
 void dispatcher_destroy(dispatcher_t* d) {
     if (!d) return;
     delete d->impl;
-    std::free(d);
+    delete d;
 }
 
 subscription_id_t dispatcher_subscribe(dispatcher_t* d, const char* topic, void (*cb)(void*)) {

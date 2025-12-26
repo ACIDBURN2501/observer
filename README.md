@@ -17,10 +17,19 @@ cmake --build .
 ```
 
 ## Run Unit Tests
+The project uses **CTest** for test management.
 ```bash
-./tests   # prints "Test passed"
-./multi_topic_test   # runs additional tests
+cd build
+ctest --output-on-failure
 ```
+
+## Installation
+To install the library to your system:
+```bash
+cd build
+cmake --install .
+```
+This installs the headers, library, and CMake configuration files, allowing other projects to use `find_package(observer REQUIRED)`.
 
 ## Usage (C++)
 ```cpp

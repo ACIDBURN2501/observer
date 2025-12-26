@@ -29,28 +29,28 @@ using subscription_id_t = std::size_t;
 
 class Dispatcher {
 public:
-    Dispatcher();
-    ~Dispatcher();
+    Dispatcher() noexcept = default;
+    ~Dispatcher() noexcept = default;
 
     /**
      * @brief Subscribe a callback to a topic.
      * @param topic The name of the topic to subscribe to.
      * @return A unique subscription identifier.
      */
-    subscription_id_t subscribe(const std::string& topic, callback_t cb);
+    [[nodiscard]] subscription_id_t subscribe(const std::string& topic, callback_t cb) noexcept;
 
     /**
      * @brief Unsubscribe using the subscription id returned by subscribe.
      * @param id Identifier of the subscription to remove.
      */
-    void unsubscribe(subscription_id_t id);
+    void unsubscribe(subscription_id_t id) noexcept;
 
     /**
      * @brief Publish data to a topic.
      * @param topic The name of the topic to publish.
      * @param data Pointer to data passed to callbacks.
      */
-    void publish(const std::string& topic, void* data) const;
+    void publish(const std::string& topic, void* data) const noexcept;
 
 private:
     struct Subscription {

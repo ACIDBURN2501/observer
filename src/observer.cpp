@@ -11,10 +11,10 @@
 
 namespace observer {
 
-Dispatcher::Dispatcher() = default;
-Dispatcher::~Dispatcher() = default;
+// Defaulted constructors/destructor are defined inline in the header.
+// No need to define them here.
 
-subscription_id_t Dispatcher::subscribe(const std::string& topic, callback_t cb) {
+subscription_id_t Dispatcher::subscribe(const std::string& topic, callback_t cb) noexcept {
     std::lock_guard<std::mutex> lock(mutex_);
     subscription_id_t id = next_id_++;
     Subscription sub{id, std::move(cb)};
@@ -23,7 +23,7 @@ subscription_id_t Dispatcher::subscribe(const std::string& topic, callback_t cb)
     return id;
 }
 
-void Dispatcher::unsubscribe(subscription_id_t id) {
+void Dispatcher::unsubscribe(subscription_id_t id) noexcept {
     std::lock_guard<std::mutex> lock(mutex_);
     auto it = id_to_topic_.find(id);
     if (it == id_to_topic_.end()) return;
@@ -34,7 +34,7 @@ void Dispatcher::unsubscribe(subscription_id_t id) {
     id_to_topic_.erase(it);
 }
 
-void Dispatcher::publish(const std::string& topic, void* data) const {
+void Dispatcher::publish(const std::string& topic, void* data) const noexcept {
     std::vector<callback_t> callbacks;
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -48,5 +48,6 @@ void Dispatcher::publish(const std::string& topic, void* data) const {
         cb(data);
     }
 }
+
 
 } /* namespace observer */

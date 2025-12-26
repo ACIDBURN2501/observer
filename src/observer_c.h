@@ -14,7 +14,9 @@ extern "C" {
 
 typedef struct dispatcher_t dispatcher_t;
 
-typedef unsigned long long subscription_id_t;
+#include <stddef.h>
+
+typedef size_t subscription_id_t;
 
 dispatcher_t* dispatcher_create(void);
 void dispatcher_destroy(dispatcher_t* d);
