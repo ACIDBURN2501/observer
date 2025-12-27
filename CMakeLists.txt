@@ -1,6 +1,14 @@
 cmake_minimum_required(VERSION 3.14)
 project(observer VERSION 0.1.0 LANGUAGES C CXX)
 
+# Generate version header
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/version.h.in
+    ${CMAKE_CURRENT_BINARY_DIR}/generated/version.h
+    @ONLY
+)
+
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
@@ -11,6 +19,12 @@ if(BUILD_SHARED_LIBS)
     add_library(observer SHARED
         src/observer.cpp
         src/observer_c.cpp)
+
+# Set library version information (used for .so naming)
+set_target_properties(observer PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
+)
 else()
     add_library(observer STATIC
         src/observer.cpp
@@ -24,10 +38,11 @@ set_property(TARGET observer PROPERTY POSITION_INDEPENDENT_CODE ON)
 add_library(observer::observer ALIAS observer)
 
 target_include_directories(observer
-    PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-        $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
-)
+     PUBLIC
+         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+         $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/generated>
+         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+ )
 
 # Thread support
 set(THREADS_PREFER_PTHREAD_FLAG ON)

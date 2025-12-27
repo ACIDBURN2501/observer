@@ -37,7 +37,7 @@ void dispatcher_destroy(dispatcher_t* d) {
 
 subscription_id_t dispatcher_subscribe(dispatcher_t* d, const char* topic, void (*cb)(void*)) {
     if (!d || !topic || !cb) return 0;
-    observer::callback_t f = [cb](void* data) { cb(data); };
+    observer::callback_t f = [cb](const void* data) { cb(const_cast<void*>(data)); };
     return d->impl->subscribe(std::string(topic), std::move(f));
 }
 
@@ -46,7 +46,7 @@ void dispatcher_unsubscribe(dispatcher_t* d, subscription_id_t id) {
     d->impl->unsubscribe(id);
 }
 
-void dispatcher_publish(dispatcher_t* d, const char* topic, void* data) {
+void dispatcher_publish(dispatcher_t* d, const char* topic, const void* data) {
     if (!d || !topic) return;
     d->impl->publish(std::string(topic), data);
 }

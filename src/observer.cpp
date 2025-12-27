@@ -7,6 +7,7 @@
  */
 
 #include "observer.hpp"
+#include "version.h"
 #include <algorithm>
 
 namespace observer {
@@ -34,7 +35,7 @@ void Dispatcher::unsubscribe(subscription_id_t id) noexcept {
     id_to_topic_.erase(it);
 }
 
-void Dispatcher::publish(const std::string& topic, void* data) const noexcept {
+void Dispatcher::publish(const std::string& topic, const void* data) const noexcept {
     std::vector<callback_t> callbacks;
     {
         std::lock_guard<std::mutex> lock(mutex_);
@@ -49,5 +50,9 @@ void Dispatcher::publish(const std::string& topic, void* data) const noexcept {
     }
 }
 
+
+const char* Dispatcher::version() noexcept {
+    return OBSERVER_VERSION;
+}
 
 } /* namespace observer */

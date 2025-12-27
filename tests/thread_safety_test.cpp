@@ -10,14 +10,14 @@ int main() {
     std::atomic<std::int64_t> counter{0};
 
     // Subscribe: increments counter by the value passed
-    auto sub = d.subscribe("msg", [&](void* data){
-        counter.fetch_add(*static_cast<std::int64_t*>(data), std::memory_order_relaxed);
+    auto sub = d.subscribe("msg", [&](const void* data){
+        counter.fetch_add(*static_cast<const std::int64_t*>(data), std::memory_order_relaxed);
     });
 
     // Producer thread publishes sequential integers
     std::thread producer([&]{
         for (std::int64_t i = 0; i < iterations; ++i) {
-            d.publish("msg", (void*)&i);
+            d.publish("msg", &i);
         }
     });
 

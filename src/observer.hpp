@@ -24,7 +24,7 @@ namespace observer {
  * data to those topics.
  */
 
-using callback_t = std::function<void(void*)>;
+using callback_t = std::function<void(const void*)>;
 using subscription_id_t = std::size_t;
 
 class Dispatcher {
@@ -50,7 +50,13 @@ public:
      * @param topic The name of the topic to publish.
      * @param data Pointer to data passed to callbacks.
      */
-    void publish(const std::string& topic, void* data) const noexcept;
+    void publish(const std::string& topic, const void* data) const noexcept;
+
+    /**
+     * @brief Retrieve library version string (e.g., "0.1.0").
+     * @return Null‑terminated version string.
+     */
+    static const char* version() noexcept;
 
 private:
     struct Subscription {
