@@ -69,6 +69,12 @@ if(BUILD_TESTING)
     target_include_directories(thread_safety_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
     target_link_libraries(thread_safety_test PRIVATE observer)
     add_test(NAME thread_safety_test COMMAND thread_safety_test)
+
+    # Edge case tests
+    add_executable(edge_cases_test tests/edge_cases_test.cpp)
+    target_include_directories(edge_cases_test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    target_link_libraries(edge_cases_test PRIVATE observer)
+    add_test(NAME edge_cases_test COMMAND edge_cases_test)
 endif()
 
 # Install rules
