@@ -1,5 +1,5 @@
 /**
- * @licence MIT
+ * SPDX-License-Identifier: MIT
  *
  * @brief C++ implementation for the Observer library.
  *

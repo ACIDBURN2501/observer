@@ -1,37 +1,29 @@
-# Observer Library
+# observer
 
 A lightweight, header‑only (with optional C API) library implementing the **Observer / Publisher‑Subscriber** pattern in modern C++.
 
 ## Features
+
 - Subscribe callbacks (`std::function<void(void*)>`) to string‑identified topics.
 - Publish an event; all callbacks for that topic are invoked.
 - Automatic subscription identifiers for easy unsubscription.
 - Thread‑safe via internal `std::mutex`.
 - Optional C API (`dispatcher_create`, `dispatcher_subscribe`, …) for interoperability with C projects.
 
-## Build & Run (CMake)
+## Getting Started
+
 ```bash
+# Configure & build
 mkdir -p build && cd build
 cmake ..
 cmake --build .
-```
 
-## Run Unit Tests
-The project uses **CTest** for test management.
-```bash
-cd build
+# Run the tests (the project uses CTest)
 ctest --output-on-failure
 ```
 
-## Installation
-To install the library to your system:
-```bash
-cd build
-cmake --install .
-```
-This installs the headers, library, and CMake configuration files, allowing other projects to use `find_package(observer REQUIRED)`.
-
 ## Usage (C++)
+
 ```cpp
 #include "observer.hpp"
 #include <iostream>
@@ -48,6 +40,7 @@ int main() {
 ```
 
 ## Usage (C)
+
 ```c
 #include "observer_c.h"
 #include <stdio.h>
@@ -66,3 +59,14 @@ int main() {
     return 0;
 }
 ```
+
+## Installation
+
+To install the library to your system:
+
+```bash
+cd build
+cmake --install .
+```
+
+This installs the headers, library, and CMake configuration files, allowing other projects to use `find_package(observer REQUIRED)`.
